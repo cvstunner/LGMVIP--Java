@@ -1,22 +1,25 @@
 package com.servlets;
 
 import java.io.IOException;
+import java.util.Calendar;
+import java.text.SimpleDateFormat;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.Calendar;
-import java.text.SimpleDateFormat;
 
+// Servlet for URL pattern /fluctuations
 public class Fluctuations extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private String api_URL = "";
     private String base = "";
-       
+
+    // Public Class Constructor
     public Fluctuations() {
         super();
     }
 
+    // Handling request from client
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         base = req.getParameter("base");

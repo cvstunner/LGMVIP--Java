@@ -6,15 +6,18 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+// Servlet for URL pattern /rates
 public class Rates extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private String api_URL = "";
     private String base = "";
        
+    // Public Class Constructor
     public Rates() {
         super();
     }
 
+    // Handling requests from client
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         base = req.getParameter("base");

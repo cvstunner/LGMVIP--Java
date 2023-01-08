@@ -1,6 +1,6 @@
+// function triggers on load of webpage
 window.onload = () => {
     window.sessionStorage.removeItem('page');
-    console.log("Yup!");
     getCurrentRates('USD', 'INR');
     input_1.value = 1;
 }
@@ -20,14 +20,14 @@ let cnvrsn_arrow_icon = document.getElementById('cnvrsn-arrow-icon');
 let rates = {};
 let fluctuations = {};
 
-// Tags EventListeners Instance
+// EventListeners Instance
 select_1.addEventListener('change', select_changed);
 select_2.addEventListener('change', select_changed);
 convert_btn.addEventListener('click', convert_btn_clicked);
 cnvrsn_arrow_icon.addEventListener('click', cnvrsn_arrow_icon_clicked);
 input_1.addEventListener('keypress', function(e){input_1_handler(e)});
 
-// EventListeners Handlers
+// Event Handlers
 function select_changed(){
     getCurrentRates(select_1.value, select_2.value);
     setCurrentRates(convert(input_1.value, select_1.value, select_2.value), select_1.value, select_2.value);
@@ -78,6 +78,7 @@ async function getFluctuations(base){
     });
 };
 
+// function to display Update in Rates 
 async function displayFluctuations(base){
     console.log('displayFluctuations: ', fluctuations[base], ' ', rates[base]);
     let calc_rate = (fluctuations[base]).toFixed(3) - (rates[base]).toFixed(3);
@@ -106,6 +107,7 @@ async function displayFluctuations(base){
     }
 }
 
+// function to populate Both Country Select Inputs
 function populateSelects(data, rate1, rate2){
     let select_options = '';
     for (const key in data){
@@ -128,6 +130,7 @@ function populateSelects(data, rate1, rate2){
     select_2.innerHTML = select_options;
 }
 
+// function to convert currency using current rates
 function convert(value, rate1, rate2){
     let calc = ((value/rates[rate1]) * rates[rate2]).toFixed(3);
     return calc;
@@ -142,6 +145,7 @@ function setConvertedValue(calc){
     input_2.value = calc;
 }
 
+// function to make various Requests to Server
 function query(route, method, body, response){
     if (method === 'get'){
         fetch(route, {

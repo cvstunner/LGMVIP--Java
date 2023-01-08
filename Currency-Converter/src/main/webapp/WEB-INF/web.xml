@@ -2,18 +2,19 @@
  "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
+<!-- Servlet Mapping -->
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
   <servlet>
   	<servlet-name>Rates</servlet-name>
   	<display-name>Rates</display-name>
-  	<description></description>
+  	<description>Servlet for fetching latest rates</description>
   	<servlet-class>com.servlets.Rates</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>Fluctuations</servlet-name>
     <display-name>Fluctuations</display-name>
-    <description></description>
+    <description>Servlet for fetching previous rates</description>
     <servlet-class>com.servlets.Fluctuations</servlet-class>
   </servlet>
   <servlet-mapping>
