@@ -25,7 +25,6 @@ public class Fluctuations extends HttpServlet {
         yest_date.add(Calendar.DATE, -1);
         SimpleDateFormat format_date = new SimpleDateFormat("yyyy-MM-dd");
         api_URL = "https://api.exchangerate.host/" + format_date.format(yest_date.getTime()) + "?places=3&base=" + base;
-        // api_URL = "https://api.exchangerate.host/fluctuation?start_date=" + format_date.format(today_date.getTime()) + "&end_date=" + format_date.format(yest_date.getTime()) + "&places=3&base=USD";
         System.out.println("date: " + format_date.format(today_date.getTime()) + " " + format_date.format(yest_date.getTime()));
         res.setContentType("application/json");
         res.setCharacterEncoding("UTF-8");

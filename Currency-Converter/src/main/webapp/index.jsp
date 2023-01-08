@@ -6,7 +6,7 @@
 		<meta hhtp-equiv="Cache-Controller" content="no-cache"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Currency Converter</title>
-			<link rel="stylesheet" href="css/index.css" />
+			<link rel="stylesheet" href="css/index.css?version=1" />
 	</head>
 	<body>
 		<main>
