@@ -1,0 +1,9 @@
+
+        <dependency>
+          <groupId>com.formdev</groupId>
+          <artifactId>flatlaf</artifactId>
+          <version>3.0</version>
+          <scope>system</scope>
+          <systemPath>${basedir}/src/main/resources/flatlaf-3.0.jar</systemPath>
+        </dependency>
+    </dependencies>
