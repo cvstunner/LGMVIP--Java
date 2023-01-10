@@ -54,6 +54,8 @@ public class Main extends JFrame {
 	String player1_choice = "";
 	String player2_choice = "";
 	boolean isGameEnded = false;
+	boolean isGameDraw = false;
+	int turnCount = 0;
 
 	// Public Class Constructor
 	public  Main(){
@@ -339,6 +341,7 @@ public class Main extends JFrame {
 					if (game_btns[i].getText() == ""){
 						game_btns[i].setText(player1_choice);
 						game_btns[i].setForeground(new Color(105, 135, 205));
+						turnCount++;
 						check();
 						player1_turn = false;
 					}
@@ -347,6 +350,7 @@ public class Main extends JFrame {
 					if (game_btns[i].getText() == ""){
 						game_btns[i].setText(player2_choice);
 						game_btns[i].setForeground(new Color(205, 105, 115));
+						turnCount++;
 						check();
 						player1_turn = true;
 					}
@@ -371,50 +375,38 @@ public class Main extends JFrame {
 	}
 
 	public void check(){
-		winningConditions("X");
-		winningConditions("O");
+		checkWinningConditions("X");
+		checkWinningConditions("O");
+		checkDrawConditions();
 	}
 
-	public void winningConditions(String choice){
-		if(game_btns[0].getText()==choice && game_btns[1].getText()==choice && game_btns[2].getText()==choice){
-			setBtnsBg(0, 1, 2);
-			selectWinner(choice);
+	public void checkDrawConditions(){
+		System.out.println(isGameEnded + " " + turnCount);
+		if (isGameEnded == false && turnCount == 9){
+			selectWinner("-");
 			isGameEnded = true;
+			turnCount = 0;
 		}
-		else if(game_btns[3].getText()==choice && game_btns[4].getText()==choice && game_btns[5].getText()==choice){
-			setBtnsBg(3, 4, 5);
+	}
+
+	public void checkWinningConditions(String choice){
+		winningCondition(choice, 0, 1, 2);
+		winningCondition(choice, 3, 4, 5);
+		winningCondition(choice, 6, 7, 8);
+		winningCondition(choice, 0, 3, 6);
+		winningCondition(choice, 1, 4, 7);
+		winningCondition(choice, 2, 5, 8);
+		winningCondition(choice, 0, 4, 8);
+		winningCondition(choice, 2, 4, 6);
+	}
+
+	public void winningCondition(String choice, int posn1, int posn2, int posn3){
+		if(game_btns[posn1].getText()==choice && game_btns[posn2].getText()==choice && game_btns[posn3].getText()==choice){
+			setBtnsBg(posn1, posn2, posn3);
 			selectWinner(choice);
 			isGameEnded = true;
-		}
-		else if(game_btns[6].getText()==choice && game_btns[7].getText()==choice && game_btns[8].getText()==choice){
-			setBtnsBg(6, 7, 8);
-			selectWinner(choice);
-			isGameEnded = true;
-		}
-		else if(game_btns[0].getText()==choice && game_btns[3].getText()==choice && game_btns[6].getText()==choice){
-			setBtnsBg(0, 3, 6);
-			selectWinner(choice);
-			isGameEnded = true;
-		}
-		else if (game_btns[1].getText()==choice && game_btns[4].getText()==choice && game_btns[7].getText()==choice){
-			setBtnsBg(1, 4, 7);
-			selectWinner(choice);
-			isGameEnded = true;
-		}
-		else if(game_btns[2].getText()==choice && game_btns[5].getText()==choice && game_btns[8].getText()==choice){
-			setBtnsBg(2, 5, 8);
-			selectWinner(choice);
-			isGameEnded = true;
-		}
-		else if(game_btns[0].getText()==choice && game_btns[4].getText()==choice && game_btns[8].getText()==choice){
-			setBtnsBg(0, 4, 8);
-			selectWinner(choice);
-			isGameEnded = true;
-		}
-		else if(game_btns[2].getText()==choice && game_btns[4].getText()==choice && game_btns[6].getText()==choice){
-			setBtnsBg(2, 4, 6);
-			selectWinner(choice);
-			isGameEnded = true;
+			turnCount = 0;
+			return;
 		}
 	}
 
@@ -440,7 +432,13 @@ public class Main extends JFrame {
 					game_win_player.setText("Player 2 Win!");
 					win_panel.setVisible(true);
 					System.out.println("Player 2 Win!");
-				}}
+				}
+				else if (choice == "-"){
+					game_win_player.setText("Match is Draw!");
+					win_panel.setVisible(true);
+					System.out.println("Match is Draw!");
+				}
+			}
 		};
 		timer.schedule(tt, 500);
 	}
