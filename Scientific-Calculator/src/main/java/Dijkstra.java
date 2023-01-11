@@ -1,7 +1,8 @@
 import java.lang.Character;
+import java.lang.Math;
 
 public class Dijkstra{
-	private char operators[];
+	private String operators[];
 	private String postfixExp[];
 	private String numbers[];
 	private int top;
@@ -9,16 +10,17 @@ public class Dijkstra{
 	private int front;
 	private int rear;
 	private int size;
+	private boolean isUndefined = false;
 
 	public Dijkstra(int size){
-		operators = new char[size];
+		operators = new String[size];
 		postfixExp = new String[size];
 		numbers = new String[size];
 		this.size = size;
 		top = front = rear = -1;
 	}
 
-	public void push(char data){
+	public void push(String data){
 		if (isStackFull()) {
 			System.out.println("Stack is Full!");
 			return;
@@ -26,10 +28,10 @@ public class Dijkstra{
 		operators[++top] = data;
 	}
 
-	public char pop(){
+	public String pop(){
 		if (isStackEmpty()) {			
 			System.out.println("Stack is Empty!");
-			return '\0';
+			return "";
 		}
 		return operators[top--];
 	}
@@ -42,7 +44,7 @@ public class Dijkstra{
 		return top == size-1;
 	}
 
-	public char peekStack(){
+	public String peekStack(){
 		return operators[top];
 	}
 
@@ -111,6 +113,12 @@ public class Dijkstra{
 
 	public void displayStack(){
 		for (int i=0; i <= top; i++) {
+			System.out.println(i + ": " + operators[i]);
+		}
+	}
+
+	public void displayNumStack(){
+		for (int i=0; i <= top; i++) {
 			System.out.println(i + ": " + numbers[i]);
 		}
 	}
@@ -134,18 +142,97 @@ public class Dijkstra{
 		return true;
 	}
 
-	public int getPrecedence(char c){
-		if (c == '(') {
+	public boolean isLetter(String str){
+		if (str == String.valueOf('\0') || str == ""){
+			return false;
+		}
+		try{
+			Double.parseDouble(String.valueOf(str));
+		}
+		catch (NumberFormatException ex) {
+			return false;
+		}
+		return true;
+	}
+
+	public boolean isTrigoFunc(String str){
+		if (str.equals("sin") || str.equals("cos") || str.equals("tan") || str.equals("asin") || str.equals("acos") || str.equals("atan")){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+
+	public boolean isUnaryOperator(char c){
+		if (c == '+' || c == '-') {
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+
+	public boolean isOperator(char c){
+		if (c == '(' || c == ')' || c == '+' || c == '-' ||  c == '*' ||  c == '/') {
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+
+	public boolean isArithmeticOperator(char c){
+		if (c == '+' || c == '-' ||  c == '*' ||  c == '/') {
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+
+	public boolean isLogFunc(String str){
+		if (str.equals("log") || str.equals("ln")) {
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+
+	public boolean isSqrt(String str){
+		if (str.equals("sqrt")) {
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+
+	public boolean isSqrt(char c){
+		if (c == '^') {
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+
+	public int getPrecedence(String str){
+		if (str.equals("(")) {
 			return 0;
 		}
-		else if (c == '+' || c == '-') {
+		else if (str.equals("+") || str.equals("-")) {
 			return 1;
 		}
-		else if (c == '*' || c == '/') {
+		else if (str.equals("*") || str.equals("/")) {
 			return 2;
 		}
-		else if (c == '^') {
+		else if (str.equals("^")) {
 			return 3;
+		}
+		else if (str.equals("sin") || str.equals("cos") || str.equals("tan") || str.equals("asin") || str.equals("acos") || str.equals("atan")) {
+			return 4;
 		}
 		return -1;
 	}
@@ -154,62 +241,98 @@ public class Dijkstra{
 		String expression = "(" + exp + ")";
 		String digit = "";
 		char c = '\0';
+		char pc = '\0';
 		for (int i = 0; i < expression.length(); ++i) {
 			c = expression.charAt(i);
-			if (isNum(String.valueOf(c)) || c == '.') {
+			if (i > 0) {
+				pc = expression.charAt(i-1);
+			}
+			if (isNum(String.valueOf(c)) || (isOperator(pc) && isUnaryOperator(c)) || c == '.') {
 				digit += c;
 			}
+			else if (Character.isLetter(c)){
+				if (c != 'e') {
+					digit += c;
+				}
+				else{
+					digit = "2.718281828459045";
+				}
+			}
 			else if (c == '(') {
-				if (digit != "") {
+				if(isTrigoFunc(digit) || isLogFunc(digit) || isSqrt(digit)){
+					push(digit);
+					digit = "";
+				}
+				else if (!digit.equals("") && !isTrigoFunc(digit) && !isLogFunc(digit) && !isSqrt(digit) && !Character.isLetter(c)) {
 					enQueue(digit);
 					digit = "";
 				}
-				push('(');
+				push("(");
+				// displayStack();
 			}
 			else if (c == ')') {
-				if (digit != "") {
+				if (digit.equals("pi")) {
+					digit = "3.14159265359";
 					enQueue(digit);
 					digit = "";
 				}
-				while (!isStackEmpty() && peekStack() != '(') {
-					enQueue(String.valueOf(pop()));
+				else if (!digit.equals("")){
+					enQueue(digit);
+					digit = "";
+				}
+				while (!isStackEmpty() && !peekStack().equals("(")) {
+					enQueue(pop());
 				}
 				pop();		
+				// displayStack();
+				// digit = "";
 			}
-			else{			
-				if (digit != "") {
+			else{		
+				if (digit.equals("pi")) {
+					digit = "3.14159265359";
 					enQueue(digit);
 					digit = "";
 				}
-				while (!isStackEmpty() && getPrecedence(c) <= getPrecedence(peekStack())){
-					enQueue(String.valueOf(pop()));
+				else if (!digit.equals("")){
+					enQueue(digit);
+					digit = "";
 				}
-				push(c);
+				while (!isStackEmpty() && getPrecedence(String.valueOf(c)) <= getPrecedence(peekStack()) && isArithmeticOperator(c)){
+					enQueue(pop());
+				}
+				push(String.valueOf(c));
+				// displayStack();
 			}
-		}
+		}       
 
 		while(!isStackEmpty()){
-			if (peekStack() == '(') {
+			if (peekStack() == "(") {
 				System.out.println("Invalid Expression!");
 			}
-			enQueue(String.valueOf(pop()));
+			enQueue(pop());
 			top = -1;
 		}
 	}
 
 	public String evaluateRPN(){
 		String data = "";
-		double operand1 = 0;
-		double operand2 = 0;
+		Double operand1 = 0.0;
+		Double operand2 = 0.0;
 		for(int i = front; i <= rear; i++){
 			data = deQueue();
 			if (isNum(data)) {
 				pushNumber(data);
 			}
 			else{
-				operand2 = Double.parseDouble(popNumber());
-				operand1 = Double.parseDouble(popNumber());
-				pushNumber(String.valueOf(evaluateArithmetic(data, operand1, operand2)));
+				if (isTrigoFunc(data) || isLogFunc(data) || isSqrt(data)) {
+					operand1 = Double.parseDouble(popNumber());
+				}
+				else {
+					System.out.println("issh: " + isTrigoFunc(data));
+					operand2 = Double.parseDouble(popNumber());
+					operand1 = Double.parseDouble(popNumber());
+				}
+				pushNumber(String.valueOf(evaluateOperation(data, operand1, operand2)));
 			}
 		}
 		data = popNumber();
@@ -217,8 +340,10 @@ public class Dijkstra{
 		return data;
 	}
 
-	public double evaluateArithmetic(String operation, double operand1, double operand2){
+	public double evaluateOperation(String operation, double operand1, double operand2){
 		double ans = 0;
+		double round = 10000000.0;
+		System.out.println(operation + " " + operand1);
 		switch (operation) {
 			case "*":
 				ans = operand1*operand2;
@@ -232,21 +357,64 @@ public class Dijkstra{
 			case "-":
 				ans = operand1-operand2;
 				break;
+			case "^":
+				ans = Math.pow(operand1, operand2);
+				break;
+			case "sqrt":
+				ans = Math.sqrt(operand1);
+				break;
+			case "sin":
+				ans = Math.round(Math.sin(Math.toRadians(operand1))*round)/round;
+				break;
+			case "cos":
+				ans = Math.round(Math.cos(Math.toRadians(operand1))*round)/round;
+				break;  
+			case "tan":
+				ans = Math.round(Math.tan(Math.toRadians(operand1))*round)/round;
+				break;   
+			case "asin":
+				ans = Math.toDegrees(Math.asin(operand1)*round)/round;
+				break;
+			case "acos":
+				ans = Math.toDegrees(Math.acos(operand1)*round)/round;
+				break;  
+			case "atan":
+				ans = Math.toDegrees(Math.atan(operand1)*round)/round;
+				break; 
+			case "log":
+				ans = Math.log10(operand1);
+				break;   
+			case "ln":
+				ans = Math.log(operand1);
+				break;     
 			default:
 				System.out.println("Invalid Expression!");
 				break;
 		}
+		if (ans > 9E8) {
+			isUndefined = true;
+			return 0;
+		}
+		isUndefined = false;
 		return ans;
 	}
 
 	public String calculate(String exp){
 		createRPN(exp);
-		return evaluateRPN();
+		String calc = evaluateRPN();
+		if (!isUndefined) {	
+			return calc;	
+		}
+		return "undefined"; 
 	}
 
-	// public static void main(String[] args){
-	// 	Dijkstra dj = new Dijkstra(100);
-	// 	dj.calculate("-1+2");
-	// 	// dj.calculate("1+2x3-7+1x3+3");
-	// }
+	public static void main(String[] args){
+		Dijkstra dj = new Dijkstra(100);
+		System.out.println(dj.calculate("sqrt(2^2)"));
+		// dj.createRPN("sqrt(2^2)");
+		// dj.displayQueue();
+		// dj.displayStack();
+		// System.out.println(Math.log(2.718281828459045));
+		// dj.calculate("sin(90)")
+	}
 }
