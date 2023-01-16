@@ -5,12 +5,12 @@ import java.io.InputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.stream.Collectors;
+import com.google.gson.*;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import com.google.gson.*;
 
 import org.apache.tomcat.jakartaee.commons.io.IOUtils;
 import org.json.JSONObject;
@@ -39,11 +39,11 @@ public class auth extends HttpServlet {
         User user = new Gson().fromJson(req.getReader(), User.class);
 		// String body = new BufferedReader(new InputStreamReader(inputStream)).lines().collect(Collectors.joining("\n"));
 //		System.out.println("request: " + body);
-        JSONObject resObj = new JSONObject();
-		System.out.println(user.username + " " + user.password);
+        // JSONObject resObj = new JSONObject();
+	// 	System.out.println(user.username + " " + user.password);
 		
-		resObj.put("username", user.username);	
-		resObj.put("password", user.password);
+	// 	resObj.put("username", user.username);	
+	// 	resObj.put("password", user.password);
 	    String userJsonString =  new Gson().toJson(user);
 
 	    res.setContentType("application/json");
