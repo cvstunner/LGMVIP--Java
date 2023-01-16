@@ -1,15 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-
 /**
- *
- * @author CVSTUNNER
- */
+ @author cvstunner
+**/
+
 import javax.swing.UIManager;
 import com.formdev.flatlaf.FlatDarkLaf;
-// import com.google.gson.*;
+import java.lang.Math;
 
 public class Main extends javax.swing.JFrame {
 
@@ -76,7 +71,6 @@ public class Main extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(400, 125));
         jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
-        display.setEditable(false);
         display.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 24)); // NOI18N
         display.setText("0");
         display.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -494,14 +488,17 @@ public class Main extends javax.swing.JFrame {
     private void delBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delBtnActionPerformed
         if(display.getText().equals("0") || display.getText().length() == 1){
            display.setText("0");
+           exp = "0";
         }
         else{
            display.setText(display.getText().substring(0, display.getText().length()-1));
+           exp = exp.substring(0, exp.length()-1);
         }
+        System.out.println(exp);
     }//GEN-LAST:event_delBtnActionPerformed
 
     private void ACBtnActionPerformed(java.awt.event.ActionEvent evt) {                                                                       
-        if(display.getText().equals("0")){
+        if(exp.equals("0")){
            display.setText("0");
            exp = "0";
         }
@@ -523,15 +520,15 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn6ActionPerformed
 
     private void mulBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mulBtnActionPerformed
-        createExp("×", "*");
+        ifOperatorRepeated("×", "*");
     }//GEN-LAST:event_mulBtnActionPerformed
 
     private void divBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_divBtnActionPerformed
-        createExp("÷", "/");
+        ifOperatorRepeated("÷", "/");
     }//GEN-LAST:event_divBtnActionPerformed
 
     public void createExp(String displayData, String expData){
-        if(display.getText().equals("0")){
+        if(exp.equals("0") || exp.equals("pi") || exp.equals("e")){
             display.setText(displayData);
             exp = expData;
         }
@@ -540,6 +537,53 @@ public class Main extends javax.swing.JFrame {
             exp += expData;
         }
         System.out.println(exp);
+    }
+
+    public void ifOperatorRepeated(String displayData, String expData){
+        if(!(exp.endsWith(expData))){
+            display.replaceSelection(displayData);
+            exp += expData;
+        }
+        else{
+            return;
+        }
+        System.out.println(exp);
+    }
+
+    public void ifConstantRepeated(String displayData, String expData){
+        if(exp.equals("0") || exp.equals("pi") || exp.equals("e") || isNum(exp)){
+            if (expData.equals("pi")) {
+                display.setText("π");
+                exp = "pi";
+            }
+            else if (expData.equals("e")){  
+                display.setText("e"); 
+                exp = "e"; 
+            }
+        }
+        else{
+            if(!(exp.endsWith(expData))){
+                display.replaceSelection(displayData);
+                exp += expData;
+            }
+            else{
+                return;
+            }
+        }
+        System.out.println(exp);
+    }
+
+    public boolean isNum(String str){
+        if (str == String.valueOf('\0') || str == ""){
+            return false;
+        }
+        try{
+            Double.parseDouble(String.valueOf(str));
+        }
+        catch (NumberFormatException ex) {
+            return false;
+        }
+        return true;
     }
 
     private void Btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn1ActionPerformed
@@ -555,11 +599,11 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn3ActionPerformed
 
     private void sumBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sumBtnActionPerformed
-        createExp("+", "+");
+        ifOperatorRepeated("+", "+");
     }//GEN-LAST:event_sumBtnActionPerformed
 
     private void subBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subBtnActionPerformed
-        createExp("-", "-");
+        ifOperatorRepeated("-", "-");
     }//GEN-LAST:event_subBtnActionPerformed
 
     private void Btn0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn0ActionPerformed
@@ -567,18 +611,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn0ActionPerformed
 
     private void dotBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dotBtnActionPerformed
-        if(display.getText().equals("0")){
-           display.setText("0");
-        }
-        else{
-            int len = (display.getText()).length();
-            if(!(display.getText().endsWith("."))){
-                display.replaceSelection(".");
-            }
-            else{
-                return;
-            }
-        }
+        ifOperatorRepeated(".", ".");
     }//GEN-LAST:event_dotBtnActionPerformed
 
     private void openBracBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openBracBtnActionPerformed
@@ -600,7 +633,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_sqrtBtnActionPerformed
 
     private void piBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_piBtnActionPerformed
-        createExp("π", "pi");
+        ifConstantRepeated("π", "pi");
     }//GEN-LAST:event_piBtnActionPerformed
 
     private void powBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_powBtnActionPerformed
@@ -628,7 +661,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_lnBtnActionPerformed
 
     private void eBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eBtnActionPerformed
-        createExp("e", "e");
+        ifConstantRepeated("e", "e");
     }//GEN-LAST:event_eBtnActionPerformed
 
     private void sinBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sinBtnActionPerformed
@@ -648,10 +681,11 @@ public class Main extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         try {
-    UIManager.setLookAndFeel( new FlatDarkLaf() );
-} catch( Exception ex ) {
-    System.err.println( "Failed to initialize LaF" );
-}
+            UIManager.setLookAndFeel( new FlatDarkLaf());
+        } 
+        catch(Exception ex) {
+            System.err.println("Failed to initialize LaF");
+        }
         //</editor-fold>
 
         /* Create and display the form */

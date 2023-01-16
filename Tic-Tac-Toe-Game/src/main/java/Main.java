@@ -21,6 +21,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Main extends JFrame {
+	// Instances of Swing Components & Global Variables
 	JPanel toss_panel = new JPanel();
 	JPanel player1_panel = new JPanel();
 	JPanel player1_sub_panel = new JPanel(); 
@@ -62,6 +63,7 @@ public class Main extends JFrame {
 		init();
 	}
 
+	// Graphical Interface
 	private void init(){
 		SpringLayout spg_layout = new SpringLayout();
 		toss_panel.setBackground(new Color(120, 190, 170));
@@ -278,6 +280,7 @@ public class Main extends JFrame {
 	}
 
 	// Action Event Listeners
+	// Method to Continue the game
 	public void yes_btn_ActionPerformd(ActionEvent e){
 		win_panel.setVisible(false);
 		toss_panel.setVisible(true);
@@ -286,10 +289,12 @@ public class Main extends JFrame {
 		isGameEnded = false;
 	}
 
+	// Method to exit the Application
 	public void no_btn_ActionPerformd(ActionEvent e){
 		System.exit(0);
 	}
 
+	// Method to enable or disable game buttons
 	public void setEnableBtns(boolean status){
 		for (int i = 0; i < 9; i++) {
 			game_btns[i].setEnabled(status);
@@ -298,12 +303,14 @@ public class Main extends JFrame {
 		}
 	}
 
+	// Eventlistener for toss button
 	public void toss_btn_ActionPerformed(ActionEvent e){
 		toss();
 		toss_panel.setVisible(false);
 		choice_panel.setVisible(true);
 	}
 
+	// Initializing choices
 	public void choice_X_btn_ActionPerformd(ActionEvent e){
 		if (player1_turn == true) {
 			player1_choice = "X";
@@ -319,6 +326,7 @@ public class Main extends JFrame {
 		choice_panel.setVisible(false);
 	}
 
+	// Initializing choices
 	public void choice_O_btn_ActionPerformed(ActionEvent e){
 		if (player1_turn == true) {
 			player1_choice = "O";
@@ -334,6 +342,7 @@ public class Main extends JFrame {
 		choice_panel.setVisible(false);
 	}
 
+	// Eventlistener for game buttons if any clicked
 	public void game_btns_ActionPerformd(ActionEvent e){
 		for (int i = 0; i < 9; i++) {
 			if(e.getSource() == game_btns[i] && isGameEnded != true){
@@ -359,6 +368,7 @@ public class Main extends JFrame {
 		}
 	}
 
+	// Method to do Toss for first turn & to choice (X OR O) 
 	public void toss(){
 		Random random = new Random();
 		if(random.nextInt(2) == 0){
@@ -371,9 +381,9 @@ public class Main extends JFrame {
 			player1_turn = false;
 			System.out.println("Player 2 Wins! Toss");
 		}
-		System.out.println(player1_turn);
 	}
 
+	// Method to check for winning or draw conditions
 	public void check(){
 		checkWinningConditions("X");
 		checkWinningConditions("O");
@@ -381,7 +391,6 @@ public class Main extends JFrame {
 	}
 
 	public void checkDrawConditions(){
-		System.out.println(isGameEnded + " " + turnCount);
 		if (isGameEnded == false && turnCount == 9){
 			selectWinner("-");
 			isGameEnded = true;
@@ -389,6 +398,7 @@ public class Main extends JFrame {
 		}
 	}
 
+	// Winning conditions of game
 	public void checkWinningConditions(String choice){
 		winningCondition(choice, 0, 1, 2);
 		winningCondition(choice, 3, 4, 5);
@@ -410,12 +420,14 @@ public class Main extends JFrame {
 		}
 	}
 
+	// Method to highlight Matched Row 
 	public void setBtnsBg(int posn1, int posn2, int posn3){
 		game_btns[posn1].setBackground(new Color(185, 235, 185));
 		game_btns[posn2].setBackground(new Color(185, 235, 185));
 		game_btns[posn3].setBackground(new Color(185, 235, 185));
 	}
 
+	// Method to select winner amongst the 2 players
 	public void selectWinner(String choice){
 		Timer timer = new Timer();
 		TimerTask tt = new TimerTask(){

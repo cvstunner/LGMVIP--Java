@@ -174,7 +174,7 @@ public class Dijkstra{
 	}
 
 	public boolean isOperator(char c){
-		if (c == '(' || c == ')' || c == '+' || c == '-' ||  c == '*' ||  c == '/') {
+		if (c == '(' || c == '+' || c == '-' ||  c == '*' ||  c == '/') {
 			return true;
 		}
 		else{
@@ -231,7 +231,7 @@ public class Dijkstra{
 		else if (str.equals("^")) {
 			return 3;
 		}
-		else if (str.equals("sin") || str.equals("cos") || str.equals("tan") || str.equals("asin") || str.equals("acos") || str.equals("atan")) {
+		else if (str.equals("sin") || str.equals("cos") || str.equals("tan") || str.equals("asin") || str.equals("acos") || str.equals("atan") || str.equals("log") || str.equals("ln")) {
 			return 4;
 		}
 		return -1;
@@ -255,7 +255,7 @@ public class Dijkstra{
 					digit += c;
 				}
 				else{
-					digit = "2.718281828459045";
+					digit = "2.718281828459045235360287";
 				}
 			}
 			else if (c == '(') {
@@ -268,11 +268,10 @@ public class Dijkstra{
 					digit = "";
 				}
 				push("(");
-				// displayStack();
 			}
 			else if (c == ')') {
 				if (digit.equals("pi")) {
-					digit = "3.14159265359";
+					digit = "3.141592653589793238462643";
 					enQueue(digit);
 					digit = "";
 				}
@@ -284,12 +283,10 @@ public class Dijkstra{
 					enQueue(pop());
 				}
 				pop();		
-				// displayStack();
-				// digit = "";
 			}
 			else{		
 				if (digit.equals("pi")) {
-					digit = "3.14159265359";
+					digit = "3.141592653589793238462643";
 					enQueue(digit);
 					digit = "";
 				}
@@ -301,7 +298,6 @@ public class Dijkstra{
 					enQueue(pop());
 				}
 				push(String.valueOf(c));
-				// displayStack();
 			}
 		}       
 
@@ -373,13 +369,13 @@ public class Dijkstra{
 				ans = Math.round(Math.tan(Math.toRadians(operand1))*round)/round;
 				break;   
 			case "asin":
-				ans = Math.toDegrees(Math.asin(operand1)*round)/round;
+				ans = Math.toDegrees(Math.asin(operand1));
 				break;
 			case "acos":
-				ans = Math.toDegrees(Math.acos(operand1)*round)/round;
+				ans = Math.toDegrees(Math.acos(operand1));
 				break;  
 			case "atan":
-				ans = Math.toDegrees(Math.atan(operand1)*round)/round;
+				ans = Math.toDegrees(Math.atan(operand1));
 				break; 
 			case "log":
 				ans = Math.log10(operand1);
@@ -408,13 +404,16 @@ public class Dijkstra{
 		return "undefined"; 
 	}
 
-	public static void main(String[] args){
-		Dijkstra dj = new Dijkstra(100);
-		System.out.println(dj.calculate("sqrt(2^2)"));
-		// dj.createRPN("sqrt(2^2)");
-		// dj.displayQueue();
-		// dj.displayStack();
-		// System.out.println(Math.log(2.718281828459045));
-		// dj.calculate("sin(90)")
-	}
+	// public static void main(String[] args){
+	// 	Dijkstra dj = new Dijkstra(100);
+	// 	System.out.println(dj.calculate("log(ln(e)+sin(90)+asin(sin(45)))"));
+	// 	// dj.createRPN("log(ln(e)+log(90))");
+	// 	// dj.displayQueue();
+	// 	// dj.displayStack();
+	// 	// System.out.println(Math.log(2.718281828459045));
+	// 	// dj.calculate("sin(90)")
+	// }
 }
+
+// pie = 3.1415926535897932384626433832795
+// e   = 2.7182818284590452353602874713527
