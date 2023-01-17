@@ -2,9 +2,12 @@
  @author cvstunner
 **/
 
+package com.sc;
+
 import javax.swing.UIManager;
 import com.formdev.flatlaf.FlatDarkLaf;
 import java.lang.Math;
+import com.algorithm.Dijkstra;
 
 public class Main extends javax.swing.JFrame {
 
@@ -14,6 +17,8 @@ public class Main extends javax.swing.JFrame {
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+
+    // Graphical Interface
     private void initComponents() {
 
         jPanel5 = new javax.swing.JPanel();
@@ -58,7 +63,6 @@ public class Main extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Scientific Calculator");
         setFont(new java.awt.Font("JetBrains Mono", 0, 18)); // NOI18N
-        setMaximumSize(new java.awt.Dimension(400, 500));
         setMinimumSize(new java.awt.Dimension(400, 500));
         setResizable(false);
         setSize(new java.awt.Dimension(400, 500));
@@ -470,8 +474,38 @@ public class Main extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    // Instance of Dijkstra class
     Dijkstra djk = new Dijkstra(100);
     String exp = "0";
+
+    // Event Handlers    
+    private void Btn0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn0ActionPerformed
+        createExp("0", "0");
+    }//GEN-LAST:event_Btn0ActionPerformed
+
+    private void Btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn1ActionPerformed
+        createExp("1", "1");
+    }//GEN-LAST:event_Btn1ActionPerformed
+
+    private void Btn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn2ActionPerformed
+        createExp("2", "2");
+    }//GEN-LAST:event_Btn2ActionPerformed
+
+    private void Btn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn3ActionPerformed
+        createExp("3", "3");
+    }//GEN-LAST:event_Btn3ActionPerformed
+
+    private void Btn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn4ActionPerformed
+        createExp("4", "4");
+    }//GEN-LAST:event_Btn4ActionPerformed
+
+    private void Btn5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn5ActionPerformed
+        createExp("5", "5");
+    }//GEN-LAST:event_Btn5ActionPerformed
+
+    private void Btn6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn6ActionPerformed
+        createExp("6", "6");
+    }//GEN-LAST:event_Btn6ActionPerformed
 
     private void Btn7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn7ActionPerformed
         createExp("7", "7");
@@ -484,6 +518,82 @@ public class Main extends javax.swing.JFrame {
     private void Btn9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn9ActionPerformed
         createExp("9", "9");
     }//GEN-LAST:event_Btn9ActionPerformed
+
+    private void sumBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sumBtnActionPerformed
+        ifOperatorRepeated("+", "+");
+    }//GEN-LAST:event_sumBtnActionPerformed
+
+    private void subBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subBtnActionPerformed
+        ifOperatorRepeated("-", "-");
+    }//GEN-LAST:event_subBtnActionPerformed
+
+    private void mulBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mulBtnActionPerformed
+        ifOperatorRepeated("×", "*");
+    }//GEN-LAST:event_mulBtnActionPerformed
+
+    private void divBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_divBtnActionPerformed
+        ifOperatorRepeated("÷", "/");
+    }//GEN-LAST:event_divBtnActionPerformed
+
+    private void dotBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dotBtnActionPerformed
+        ifOperatorRepeated(".", ".");
+    }//GEN-LAST:event_dotBtnActionPerformed
+
+    private void openBracBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openBracBtnActionPerformed
+        createExp("(", "(");
+    }//GEN-LAST:event_openBracBtnActionPerformed
+
+    private void closeBracBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBracBtnActionPerformed
+        createExp(")", ")");
+    }//GEN-LAST:event_closeBracBtnActionPerformed
+    
+    private void sqrtBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sqrtBtnActionPerformed
+        createExp("√(", "sqrt(");
+    }//GEN-LAST:event_sqrtBtnActionPerformed
+
+    private void piBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_piBtnActionPerformed
+        ifConstantRepeated("π", "pi");
+    }//GEN-LAST:event_piBtnActionPerformed
+
+    private void powBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_powBtnActionPerformed
+        createExp("^", "^");
+    }//GEN-LAST:event_powBtnActionPerformed
+
+    private void sinBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sinBtnActionPerformed
+        createExp("sin(", "sin(");
+    }//GEN-LAST:event_sinBtnActionPerformed
+
+    private void cosBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cosBtnActionPerformed
+        createExp("cos(", "cos(");
+    }//GEN-LAST:event_cosBtnActionPerformed
+
+    private void tanBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tanBtnActionPerformed
+        createExp("tan(", "tan(");
+    }//GEN-LAST:event_tanBtnActionPerformed
+
+    private void asinBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_asinBtnActionPerformed
+        createExp("asin(", "asin(");
+    }//GEN-LAST:event_asinBtnActionPerformed
+
+    private void acosBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acosBtnActionPerformed
+        createExp("acos(", "acos(");
+    }//GEN-LAST:event_acosBtnActionPerformed
+
+    private void atanBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atanBtnActionPerformed
+        createExp("atan(", "atan(");
+    }//GEN-LAST:event_atanBtnActionPerformed
+
+    private void logBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logBtnActionPerformed
+        createExp("log(", "log(");
+    }//GEN-LAST:event_logBtnActionPerformed
+
+    private void lnBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lnBtnActionPerformed
+        createExp("ln(", "ln(");
+    }//GEN-LAST:event_lnBtnActionPerformed
+
+    private void eBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eBtnActionPerformed
+        ifConstantRepeated("e", "e");
+    }//GEN-LAST:event_eBtnActionPerformed
 
     private void delBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delBtnActionPerformed
         if(display.getText().equals("0") || display.getText().length() == 1){
@@ -506,27 +616,16 @@ public class Main extends javax.swing.JFrame {
            display.setText("0");
            exp = "0";
         }
-    }                                                     
-    private void Btn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn4ActionPerformed
-        createExp("4", "4");
-    }//GEN-LAST:event_Btn4ActionPerformed
+    }     
 
-    private void Btn5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn5ActionPerformed
-        createExp("5", "5");
-    }//GEN-LAST:event_Btn5ActionPerformed
+    // method to evaluate the generated algebraic expression
+    private void equalBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_equalBtnActionPerformed
+        String calc = djk.calculate(exp);
+        display.setText(calc);
+        exp = calc;
+    }//GEN-LAST:event_equalBtnActionPerformed
 
-    private void Btn6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn6ActionPerformed
-        createExp("6", "6");
-    }//GEN-LAST:event_Btn6ActionPerformed
-
-    private void mulBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mulBtnActionPerformed
-        ifOperatorRepeated("×", "*");
-    }//GEN-LAST:event_mulBtnActionPerformed
-
-    private void divBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_divBtnActionPerformed
-        ifOperatorRepeated("÷", "/");
-    }//GEN-LAST:event_divBtnActionPerformed
-
+    // Method to create Algebraic expression on user input
     public void createExp(String displayData, String expData){
         if(exp.equals("0") || exp.equals("pi") || exp.equals("e")){
             display.setText(displayData);
@@ -573,6 +672,7 @@ public class Main extends javax.swing.JFrame {
         System.out.println(exp);
     }
 
+    // method to check if passed parameter is Number or not 
     public boolean isNum(String str){
         if (str == String.valueOf('\0') || str == ""){
             return false;
@@ -585,96 +685,6 @@ public class Main extends javax.swing.JFrame {
         }
         return true;
     }
-
-    private void Btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn1ActionPerformed
-        createExp("1", "1");
-    }//GEN-LAST:event_Btn1ActionPerformed
-
-    private void Btn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn2ActionPerformed
-        createExp("2", "2");
-    }//GEN-LAST:event_Btn2ActionPerformed
-
-    private void Btn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn3ActionPerformed
-        createExp("3", "3");
-    }//GEN-LAST:event_Btn3ActionPerformed
-
-    private void sumBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sumBtnActionPerformed
-        ifOperatorRepeated("+", "+");
-    }//GEN-LAST:event_sumBtnActionPerformed
-
-    private void subBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subBtnActionPerformed
-        ifOperatorRepeated("-", "-");
-    }//GEN-LAST:event_subBtnActionPerformed
-
-    private void Btn0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn0ActionPerformed
-        createExp("0", "0");
-    }//GEN-LAST:event_Btn0ActionPerformed
-
-    private void dotBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dotBtnActionPerformed
-        ifOperatorRepeated(".", ".");
-    }//GEN-LAST:event_dotBtnActionPerformed
-
-    private void openBracBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openBracBtnActionPerformed
-        createExp("(", "(");
-    }//GEN-LAST:event_openBracBtnActionPerformed
-
-    private void closeBracBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBracBtnActionPerformed
-        createExp(")", ")");
-    }//GEN-LAST:event_closeBracBtnActionPerformed
-
-    private void equalBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_equalBtnActionPerformed
-        String calc = djk.calculate(exp);
-        display.setText(calc);
-        exp = calc;
-    }//GEN-LAST:event_equalBtnActionPerformed
-
-    private void sqrtBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sqrtBtnActionPerformed
-        createExp("√(", "sqrt(");
-    }//GEN-LAST:event_sqrtBtnActionPerformed
-
-    private void piBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_piBtnActionPerformed
-        ifConstantRepeated("π", "pi");
-    }//GEN-LAST:event_piBtnActionPerformed
-
-    private void powBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_powBtnActionPerformed
-        createExp("^", "^");
-    }//GEN-LAST:event_powBtnActionPerformed
-
-    private void asinBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_asinBtnActionPerformed
-        createExp("asin(", "asin(");
-    }//GEN-LAST:event_asinBtnActionPerformed
-
-    private void acosBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acosBtnActionPerformed
-        createExp("acos(", "acos(");
-    }//GEN-LAST:event_acosBtnActionPerformed
-
-    private void atanBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atanBtnActionPerformed
-        createExp("atan(", "atan(");
-    }//GEN-LAST:event_atanBtnActionPerformed
-
-    private void logBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logBtnActionPerformed
-        createExp("log(", "log(");
-    }//GEN-LAST:event_logBtnActionPerformed
-
-    private void lnBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lnBtnActionPerformed
-        createExp("ln(", "ln(");
-    }//GEN-LAST:event_lnBtnActionPerformed
-
-    private void eBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eBtnActionPerformed
-        ifConstantRepeated("e", "e");
-    }//GEN-LAST:event_eBtnActionPerformed
-
-    private void sinBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sinBtnActionPerformed
-        createExp("sin(", "sin(");
-    }//GEN-LAST:event_sinBtnActionPerformed
-
-    private void cosBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cosBtnActionPerformed
-        createExp("cos(", "cos(");
-    }//GEN-LAST:event_cosBtnActionPerformed
-
-    private void tanBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tanBtnActionPerformed
-        createExp("tan(", "tan(");
-    }//GEN-LAST:event_tanBtnActionPerformed
 
     /**
      * @param args the command line arguments

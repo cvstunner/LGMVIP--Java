@@ -1,6 +1,9 @@
+package com.algorithm;
+
 import java.lang.Character;
 import java.lang.Math;
 
+// Implementation of Dijkstras Shunting Yard Algorithm
 public class Dijkstra{
 	private String operators[];
 	private String postfixExp[];
@@ -403,16 +406,6 @@ public class Dijkstra{
 		}
 		return "undefined"; 
 	}
-
-	// public static void main(String[] args){
-	// 	Dijkstra dj = new Dijkstra(100);
-	// 	System.out.println(dj.calculate("log(ln(e)+sin(90)+asin(sin(45)))"));
-	// 	// dj.createRPN("log(ln(e)+log(90))");
-	// 	// dj.displayQueue();
-	// 	// dj.displayStack();
-	// 	// System.out.println(Math.log(2.718281828459045));
-	// 	// dj.calculate("sin(90)")
-	// }
 }
 
 // pie = 3.1415926535897932384626433832795
