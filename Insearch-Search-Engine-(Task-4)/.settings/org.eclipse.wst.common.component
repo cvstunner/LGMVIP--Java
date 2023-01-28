@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 43dc34e15c281ee46e51777efc33487b92a99949
+                    
+    
+    
+    
+    <wb-module deploy-name="Insearch-Search-Engine">
+                                        
+<<<<<<< HEAD
+=======
+                        
+    
+    
+    
+    
+    <wb-module deploy-name="Insearch-Search-Engine">
+                                                
+        
+>>>>>>> 7fd3543 (30jan 2C)
+=======
+>>>>>>> 43dc34e15c281ee46e51777efc33487b92a99949
+        
+        
+        
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+<<<<<<< HEAD
+<<<<<<< HEAD
+                                        
+=======
+                                                
+        
+>>>>>>> 7fd3543 (30jan 2C)
+=======
+                                        
+>>>>>>> 43dc34e15c281ee46e51777efc33487b92a99949
+        
+        
+        
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+<<<<<<< HEAD
+<<<<<<< HEAD
+                                        
+=======
+                                                
+        
+>>>>>>> 7fd3543 (30jan 2C)
+=======
+                                        
+>>>>>>> 43dc34e15c281ee46e51777efc33487b92a99949
+        
+        
+        
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+<<<<<<< HEAD
+<<<<<<< HEAD
+                                        
+=======
+                                                
+        
+>>>>>>> 7fd3543 (30jan 2C)
+=======
+                                        
+>>>>>>> 43dc34e15c281ee46e51777efc33487b92a99949
+        
+        
+        
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+<<<<<<< HEAD
+<<<<<<< HEAD
+                                        
+=======
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/target/generated-sources/annotations"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/target/generated-test-sources/test-annotations"/>
+                                                
+        
+>>>>>>> 7fd3543 (30jan 2C)
+=======
+                                        
+>>>>>>> 43dc34e15c281ee46e51777efc33487b92a99949
+        
+        
+        
+        <property name="context-root" value="Insearch-Search-Engine"/>
+<<<<<<< HEAD
+<<<<<<< HEAD
+                                        
+=======
+                                                
+        
+>>>>>>> 7fd3543 (30jan 2C)
+=======
+                                        
+>>>>>>> 43dc34e15c281ee46e51777efc33487b92a99949
+        
+        
+        
+        <property name="java-output-path" value="/Insearch-Search-Engine/target/classes"/>
+<<<<<<< HEAD
+<<<<<<< HEAD
+                                    
+=======
+                                            
+    
+>>>>>>> 7fd3543 (30jan 2C)
+=======
+                                    
+>>>>>>> 43dc34e15c281ee46e51777efc33487b92a99949
+    
+    
+    
+    </wb-module>
+<<<<<<< HEAD
+<<<<<<< HEAD
+                
+=======
+                    
+
+>>>>>>> 7fd3543 (30jan 2C)
+=======
+                
+>>>>>>> 43dc34e15c281ee46e51777efc33487b92a99949
+
+
+
+</project-modules>
