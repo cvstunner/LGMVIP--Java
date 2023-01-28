@@ -5,11 +5,28 @@
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
   <servlet>
-    <servlet-name>Query</servlet-name>
-    <servlet-class>com.servlets.Query</servlet-class>
+    <servlet-name>Search</servlet-name>
+    <servlet-class>com.servlets.Search</servlet-class>
+    <async-supported>true</async-supported> 
   </servlet>
   <servlet-mapping>
-    <servlet-name>Query</servlet-name>
-    <url-pattern>/query</url-pattern>
+    <servlet-name>Search</servlet-name>
+    <url-pattern>/search</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>User</servlet-name>
+    <servlet-class>com.servlets.User</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>User</servlet-name>
+    <url-pattern>/api/user</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>History</servlet-name>
+    <servlet-class>com.servlets.UserHistory</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>History</servlet-name>
+    <url-pattern>/api/user/history</url-pattern>
   </servlet-mapping>
 </web-app>

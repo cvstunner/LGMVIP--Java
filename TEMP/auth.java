@@ -44,12 +44,12 @@ public class auth extends HttpServlet {
 		
 	// 	resObj.put("username", user.username);	
 	// 	resObj.put("password", user.password);
-	    String userJsonString =  new Gson().toJson(user);
 
 	    res.setContentType("application/json");
 	    res.setCharacterEncoding("UTF-8");
-	    res.setStatus(200);
+	    // String userJsonString =  new Gson().toJson(user);
 	    // res.getWriter().write(userJsonString);
+	    res.setStatus(200);
 	    res.sendRedirect("https://api.exchangerate.host/latest?base=USD");
 	}
 

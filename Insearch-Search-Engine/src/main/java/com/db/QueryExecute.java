@@ -1,75 +1,61 @@
-package com.db;  
+package com.db;
 
 import java.sql.*;
-import javax.swing.JOptionPane;
 
-public class QueryExecute {
+interface sqlOperations{
+    void setData(String Query, Object[] parameters);
+    ResultSet getData(String Query, Object[] parameters);
+    void setParameters(PreparedStatement statement, Object[] parameters) throws SQLException;
+}
 
-    QueryExecute(){
-        returned = infoGetter(); 
+public class QueryExecute implements sqlOperations{
+    @Override
+    public void setParameters(PreparedStatement statement, Object[] parameters) throws SQLException {
+        for (int i=0; i < parameters.length; i++) {
+            statement.setObject(i+1, parameters[i]);
+        }
     }
 
-    public ResultSet getData(String Query) {
+    @Override
+    public void setData(String Query, Object[] parameters) {
         Connection con = null;
-        Statement st = null;
+        PreparedStatement  st = null;
+
+        try {
+            con = ConnectionProvider.getCon();
+            st = con.prepareStatement(Query);
+            setParameters(st, parameters);
+            st.executeUpdate();
+            System.out.println("Inserted Successfully!");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        finally {
+            try {
+                con.close();
+                st.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+    }
+
+    public ResultSet getData(String Query, Object[] parameters) {
+        Connection con = null;
+        PreparedStatement st = null;
         ResultSet rs = null;
 
         try {
             con = ConnectionProvider.getCon();
-            st = con.createStatement();
-            rs = st.executeQuery(Query);
-
+            st = con.prepareStatement(Query);
+            setParameters(st, parameters);
+            rs = st.executeQuery();
             return rs;
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-            
+            System.out.println(e);
+            System.out.println("gd");
         }
-
-        return null;
-    }
-
-    //Getter Methods
-    String returned[] = new String[5]; 
-
-    public String getName() {
-        return returned[0];
-    }
-
-    public String getAge() {
-        return returned[1];
-    }
-
-    public String getGender() {
-        return returned[2];
-    }
-
-    public String getPhoneString() {
-        return returned[3];
-    }
-    
-    public String getEmail() {
-        return returned[4];
-    }
-
-    public String[] infoGetter() {
-//        LoginPage loginPage = new LoginPage();
-//        String phone = loginPage.getUserPhone();
-        String getInfoQuery = "select * from ManageUsers where phone = '" + "" + "'";
-
-        try {
-            ResultSet rs = getData(getInfoQuery);
-
-            if (rs.next()) {
-                returned[0] = rs.getString("Name");
-                returned[1] = rs.getString("Age");
-                returned[2] = rs.getString("Gender");
-                returned[3] = rs.getString("Phone");
-                returned[4] = rs.getString("Email");
-            }
-            // rs.close();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-        return returned;
+        return rs;
     }
 }
